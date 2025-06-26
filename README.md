@@ -5,7 +5,6 @@
 
 A **fully functional** web portal for farmers to browse government agricultural schemes, apply for programs, and track applications. Built with modern HTML, CSS, and JavaScript.  
 
-![Screenshot](screenshot.png) *(Replace with actual screenshot)*  
 
 ## ✨ Features  
 
