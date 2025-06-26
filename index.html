@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmers' Program Portal</title>
+    <style>
+        /* ===== MODERN UI IMPROVEMENTS ===== */
+        :root {
+            --primary: #2e7d32;  /* Green */
+            --secondary: #4caf50;
+            --light: #f1f8e9;
+            --dark: #1b5e20;
+            --text: #333;
+            --white: #fff;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 1rem 2rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 4rem 2rem;
+            text-align: center;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background-color: var(--dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--white);
+            margin-left: 1rem;
+        }
+
+        .btn-outline:hover {
+            background-color: var(--white);
+            color: var(--primary);
+        }
+
+        /* ===== PROGRAMS SECTION ===== */
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--dark);
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .program-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+
+        .program-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        .program-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            background-color: #ddd; /* Fallback */
+        }
+
+        .program-content {
+            padding: 1.5rem;
+        }
+
+        .program-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .program-description {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .program-status {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            background-color: #c8e6c9;
+            color: var(--dark);
+        }
+
+        /* ===== FORMS ===== */
+        .application-form, .login-form {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+        }
+
+        /* ===== DASHBOARD ===== */
+        .dashboard {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            margin-bottom: 3rem;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--secondary);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .applications-list {
+            margin-top: 2rem;
+        }
+
+        .application-item {
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .application-item h3 {
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        /* ===== UTILITY CLASSES ===== */
+        .hidden {
+            display: none !important;
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .btn-outline {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== HEADER ===== -->
+    <header>
+        <div class="header-container">
+            <div class="logo">AgroPortal</div>
+            <nav>
+                <ul>
+                    <li><a href="#" id="home-link">Home</a></li>
+                    <li><a href="#" id="programs-link">Programs</a></li>
+                    <li><a href="#" id="dashboard-link" class="hidden">Dashboard</a></li>
+                    <li><a href="#" id="login-link">Login</a></li>
+                    <li><a href="#" id="logout-link" class="hidden">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="container">
+        <!-- Home Section -->
+        <section id="home-section">
+            <div class="hero">
+                <h1>Agricultural Programs & Schemes</h1>
+                <p>Access government agricultural schemes, apply for programs, and track your applications in one place.</p>
+                <div class="hero-buttons">
+                    <button id="explore-programs-btn" class="btn">Explore Programs</button>
+                    <button id="learn-more-btn" class="btn btn-outline">Learn More</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Programs Section -->
+        <section id="programs-section" class="hidden">
+            <h2 class="section-title">Available Programs</h2>
+            <div class="programs-grid" id="programs-container">
+                <!-- Programs loaded via JavaScript -->
+            </div>
+        </section>
+
+        <!-- Application Form -->
+        <section id="application-section" class="hidden">
+            <div class="application-form">
+                <h2>Apply for <span id="program-name-title"></span></h2>
+                <form id="program-application-form">
+                    <div class="form-group">
+                        <label for="full-name">Full Name</label>
+                        <input type="text" id="full-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Farm Address</label>
+                        <textarea id="address" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="farm-size">Farm Size (acres)</label>
+                        <input type="number" id="farm-size" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="crop-type">Primary Crop Type</label>
+                        <select id="crop-type" required>
+                            <option value="">Select Crop</option>
+                            <option value="wheat">Wheat</option>
+                            <option value="rice">Rice</option>
+                            <option value="corn">Corn</option>
+                            <option value="vegetables">Vegetables</option>
+                            <option value="fruits">Fruits</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn">Submit Application</button>
+                    <button type="button" id="cancel-application-btn" class="btn btn-outline" style="color: var(--primary); border-color: var(--primary);">Cancel</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Login Section -->
+        <section id="login-section" class="hidden">
+            <div class="login-form">
+                <h2>Login to Your Account</h2>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" required>
+                    </div>
+                    <button type="submit" class="btn">Login</button>
+                </form>
+                <p style="margin-top: 1rem; text-align: center;">Don't have an account? <a href="#" id="show-register" style="color: var(--primary);">Register here</a></p>
+            </div>
+
+            <div id="register-section" class="hidden" style="margin-top: 2rem;">
+                <div class="login-form">
+                    <h2>Create New Account</h2>
+                    <form id="register-form">
+                        <div class="form-group">
+                            <label for="register-name">Full Name</label>
+                            <input type="text" id="register-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-email">Email</label>
+                            <input type="email" id="register-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-password">Password</label>
+                            <input type="password" id="register-password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-location">Farm Location</label>
+                            <input type="text" id="register-location" required>
+                        </div>
+                        <button type="submit" class="btn">Register</button>
+                    </form>
+                    <p style="margin-top: 1rem; text-align: center;">Already have an account? <a href="#" id="show-login" style="color: var(--primary);">Login here</a></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section id="dashboard-section" class="hidden">
+            <div class="dashboard">
+                <div class="dashboard-header">
+                    <div class="user-info">
+                        <div class="user-avatar" id="user-avatar">U</div>
+                        <div>
+                            <h2>Welcome, <span id="username-display"></span></h2>
+                            <p>Farmer Dashboard</p>
+                        </div>
+                    </div>
+                    <button id="apply-new-btn" class="btn">Apply for New Program</button>
+                </div>
+
+                <h3 class="section-title">Your Applications</h3>
+                <div class="applications-list" id="applications-list">
+                    <!-- Applications loaded via JavaScript -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <p>&copy; 2025 AgroPortal - Agricultural Program Application System</p>
+    </footer>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // ===== INITIALIZE APPLICATION =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // ===== DATA =====
+            const programs = [
+                {
+                    id: 1,
+                    title: "Organic Farming Subsidy",
+                    description: "Financial assistance for farmers transitioning to organic farming practices.",
+                    status: "open",
+                    deadline: "2025-12-31"
+                },
+                {
+                    id: 2,
+                    title: "Drought Resistant Crops Program",
+                    description: "Seeds and training for farmers in drought-prone areas.",
+                    status: "open",
+                    deadline: "2025-11-15"
+                },
+                {
+                    id: 3,
+                    title: "Soil Health Initiative",
+                    description: "Free soil testing and recommendations for improving soil fertility.",
+                    status: "closed",
+                    deadline: "2025-09-30"
+                }
+            ];
+
+            let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+            let userApplications = JSON.parse(localStorage.getItem('userApplications')) || [];
+
+            // ===== DOM ELEMENTS =====
+            // Sections
+            const homeSection = document.getElementById('home-section');
+            const programsSection = document.getElementById('programs-section');
+            const applicationSection = document.getElementById('application-section');
+            const loginSection = document.getElementById('login-section');
+            const registerSection = document.getElementById('register-section');
+            const dashboardSection = document.getElementById('dashboard-section');
+
+            // Buttons
+            const exploreProgramsBtn = document.getElementById('explore-programs-btn');
+            const learnMoreBtn = document.getElementById('learn-more-btn');
+            const cancelApplicationBtn = document.getElementById('cancel-application-btn');
+            const applyNewBtn = document.getElementById('apply-new-btn');
+            const showRegisterBtn = document.getElementById('show-register');
+            const showLoginBtn = document.getElementById('show-login');
+
+            // Links
+            const homeLink = document.getElementById('home-link');
+            const programsLink = document.getElementById('programs-link');
+            const dashboardLink = document.getElementById('dashboard-link');
+            const loginLink = document.getElementById('login-link');
+            const logoutLink = document.getElementById('logout-link');
+
+            // Forms
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            const applicationForm = document.getElementById('program-application-form');
+
+            // Other
+            const userAvatar = document.getElementById('user-avatar');
+            const usernameDisplay = document.getElementById('username-display');
+            const programsContainer = document.getElementById('programs-container');
+            const applicationsList = document.getElementById('applications-list');
+
+            // ===== STATE MANAGEMENT =====
+            let currentProgramId = null;
+
+            // ===== FUNCTIONS =====
+            function showSection(section) {
+                // Hide all sections
+                homeSection.classList.add('hidden');
+                programsSection.classList.add('hidden');
+                applicationSection.classList.add('hidden');
+                loginSection.classList.add('hidden');
+                registerSection.classList.add('hidden');
+                dashboardSection.classList.add('hidden');
+
+                // Show requested section
+                section.classList.remove('hidden');
+            }
+
+            function updateUIForUser() {
+                if (currentUser) {
+                    // User is logged in
+                    loginLink.classList.add('hidden');
+                    logoutLink.classList.remove('hidden');
+                    dashboardLink.classList.remove('hidden');
+
+                    // Update user info
+                    usernameDisplay.textContent = currentUser.name;
+                    userAvatar.textContent = currentUser.name.charAt(0).toUpperCase();
+                } else {
+                    // User is logged out
+                    loginLink.classList.remove('hidden');
+                    logoutLink.classList.add('hidden');
+                    dashboardLink.classList.add('hidden');
+                }
+            }
+
+            function loadPrograms() {
+                programsContainer.innerHTML = '';
+                
+                programs.forEach(program => {
+                    const programCard = document.createElement('div');
+                    programCard.className = 'program-card';
+                    
+                    let statusClass = 'program-status';
+                    if (program.status === 'closed') statusClass += ' status-closed';
+                    
+                    programCard.innerHTML = `
+                        <div class="program-image"></div>
+                        <div class="program-content">
+                            <h3 class="program-title">${program.title}</h3>
+                            <p class="program-description">${program.description}</p>
+                            <span class="${statusClass}">${program.status}</span>
+                            <p><strong>Deadline:</strong> ${program.deadline}</p>
+                            <button class="btn apply-btn" data-id="${program.id}">${program.status === 'closed' ? 'View Details' : 'Apply Now'}</button>
+                        </div>
+                    `;
+                    
+                    programsContainer.appendChild(programCard);
+                });
+
+                // Add event listeners to apply buttons
+                document.querySelectorAll('.apply-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const programId = parseInt(this.getAttribute('data-id'));
+                        const program = programs.find(p => p.id === programId);
+                        
+                        if (program) {
+                            if (program.status === 'closed') {
+                                alert('This program is currently closed for applications.');
+                                return;
+                            }
+                            
+                            if (!currentUser) {
+                                showSection(loginSection);
+                                alert('Please login to apply for programs.');
+                                return;
+                            }
+                            
+                            currentProgramId = programId;
+                            document.getElementById('program-name-title').textContent = program.title;
+                            showSection(applicationSection);
+                        }
+                    });
+                });
+            }
+
+            function loadUserApplications() {
+                applicationsList.innerHTML = '';
+                
+                if (userApplications.length === 0) {
+                    applicationsList.innerHTML = '<p>You have no active applications.</p>';
+                    return;
+                }
+                
+                userApplications.forEach(app => {
+                    const appItem = document.createElement('div');
+                    appItem.className = 'application-item';
+                    appItem.innerHTML = `
+                        <h3>${app.programTitle}</h3>
+                        <p><strong>Status:</strong> ${app.status}</p>
+                        <p><strong>Date Applied:</strong> ${app.date}</p>
+                    `;
+                    applicationsList.appendChild(appItem);
+                });
+            }
+
+            // ===== EVENT LISTENERS =====
+            // Navigation
+            homeLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                showSection(homeSection);
+            });
+
+            programsLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                loadPrograms();
+                showSection(programsSection);
+            });
+
+            dashboardLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (!currentUser) {
+                    showSection(loginSection);
+                    alert('Please login to access your dashboard.');
+                    return;
+                }
+                loadUserApplications();
+                showSection(dashboardSection);
+            });
+
+            loginLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                showSection(loginSection);
+                registerSection.classList.add('hidden');
+            });
+
+            logoutLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                currentUser = null;
+                localStorage.removeItem('currentUser');
+                updateUIForUser();
+                showSection(homeSection);
+            });
+
+            // Buttons
+            exploreProgramsBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                loadPrograms();
+                showSection(programsSection);
+            });
+
+            learnMoreBtn.addEventListener('click', () => {
+                alert('This portal helps farmers access government agricultural schemes and track their applications.');
+            });
+
+            cancelApplicationBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                showSection(programsSection);
+            });
+
+            applyNewBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                loadPrograms();
+                showSection(programsSection);
+            });
+
+            showRegisterBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                registerSection.classList.remove('hidden');
+            });
+
+            showLoginBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                registerSection.classList.add('hidden');
+            });
+
+            // Forms
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+                
+                // Simple validation (in real app, this would be server-side)
+                if (email && password) {
+                    currentUser = {
+                        email,
+                        name: email.split('@')[0] // Simple username from email
+                    };
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    
+                    updateUIForUser();
+                    loginForm.reset();
+                    showSection(dashboardSection);
+                } else {
+                    alert('Please enter both email and password.');
+                }
+            });
+
+            registerForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const name = document.getElementById('register-name').value;
+                const email = document.getElementById('register-email').value;
+                const password = document.getElementById('register-password').value;
+                const location = document.getElementById('register-location').value;
+                
+                // Simple validation
+                if (name && email && password && location) {
+                    currentUser = {
+                        name,
+                        email,
+                        location
+                    };
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    
+                    updateUIForUser();
+                    registerForm.reset();
+                    registerSection.classList.add('hidden');
+                    showSection(dashboardSection);
+                } else {
+                    alert('Please fill all fields.');
+                }
+            });
+
+            applicationForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                if (!currentUser) {
+                    showSection(loginSection);
+                    alert('Please login to apply for programs.');
+                    return;
+                }
+                
+                const programTitle = document.getElementById('program-name-title').textContent;
+                const newApplication = {
+                    programTitle,
+                    date: new Date().toLocaleDateString(),
+                    status: 'Submitted'
+                };
+                
+                userApplications.push(newApplication);
+                localStorage.setItem('userApplications', JSON.stringify(userApplications));
+                
+                alert(`Application for ${programTitle} submitted successfully!`);
+                applicationForm.reset();
+                showSection(dashboardSection);
+            });
+
+            // ===== INITIALIZE =====
+            updateUIForUser();
+            showSection(homeSection);
+        });
+    </script>
+</body>
+</html>
